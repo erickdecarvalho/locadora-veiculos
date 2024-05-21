@@ -1,5 +1,6 @@
 package com.locadoraveiculos.api.model;
 
+import com.locadoraveiculos.api.dto.CadastroVeiculoDto;
 import jakarta.persistence.*;
 
 @Entity
@@ -31,4 +32,14 @@ public class Veiculo {
     @OneToOne(mappedBy = "veiculo", fetch = FetchType.LAZY)
     private Locacao locacao;
 
+    public Veiculo(CadastroVeiculoDto dto, Locadora locadora) {
+        this.tipo = dto.tipoVeiculo();
+        this.nome = dto.nome();
+        this.chassi = dto.chassi();
+        this.ano = dto.ano();
+        this.cor = dto.cor();
+        this.peso = dto.peso();
+        this.locadora = locadora;
+        this.alugado = false;
+    }
 }

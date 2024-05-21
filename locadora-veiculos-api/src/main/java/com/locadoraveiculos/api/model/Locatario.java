@@ -1,5 +1,6 @@
 package com.locadoraveiculos.api.model;
 
+import com.locadoraveiculos.api.dto.CadastroLocatarioDto;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -21,4 +22,13 @@ public class Locatario {
 
     @OneToMany(mappedBy = "tutor")
     private List<Locacao> locacoes = new ArrayList<>();
+
+    public Locatario() {
+    }
+
+    public Locatario(CadastroLocatarioDto dto) {
+        this.nome = dto.nome();
+        this.telefone = dto.telefone();
+        this.email = dto.email();
+    }
 }
