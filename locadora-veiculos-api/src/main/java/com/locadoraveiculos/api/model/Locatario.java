@@ -20,7 +20,7 @@ public class Locatario {
 
     private String email;
 
-    @OneToMany(mappedBy = "tutor")
+    @OneToMany(mappedBy = "locatario")
     private List<Locacao> locacoes = new ArrayList<>();
 
     public Locatario() {
