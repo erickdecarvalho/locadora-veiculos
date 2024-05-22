@@ -42,4 +42,16 @@ public class Locadora {
     public String getEmail() {
         return email;
     }
+
+    public void atualizarNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void atualizarTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public void atualizarEmail(String email) {
+        this.email = email;
+    }
 }

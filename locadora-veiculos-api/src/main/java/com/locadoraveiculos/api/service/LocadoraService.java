@@ -1,17 +1,25 @@
 package com.locadoraveiculos.api.service;
 
 import com.locadoraveiculos.api.dto.CadastroLocadoraDto;
+import com.locadoraveiculos.api.dto.DadosAtualizacaoLocadora;
+import com.locadoraveiculos.api.dto.LocadoraDto;
 import com.locadoraveiculos.api.exception.ValidacaoException;
 import com.locadoraveiculos.api.model.Locadora;
 import com.locadoraveiculos.api.repository.LocadoraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LocadoraService {
 
     @Autowired
     private LocadoraRepository locadoraRepository;
+
+    public List<LocadoraDto> listar() {
+        return locadoraRepository.findAll().stream().map(LocadoraDto::new).toList();
+    }
 
     public Locadora cadastrar(CadastroLocadoraDto dto) {
         boolean jaCadastrado = locadoraRepository.existsByNomeOrTelefoneOrEmail(dto.nome(), dto.telefone(), dto.email());
@@ -21,5 +29,31 @@ public class LocadoraService {
         }
 
         return locadoraRepository.save(new Locadora(dto));
+    }
+
+    public Locadora atualizar(DadosAtualizacaoLocadora dto) {
+        var locadora = locadoraRepository.getReferenceById(dto.id());
+
+        if (dto.nome() != null) {
+            locadora.atualizarNome(dto.nome());
+        }
+        if (dto.telefone() != null) {
+            locadora.atualizarTelefone(dto.telefone());
+        }
+        if (dto.email() != null) {
+            locadora.atualizarEmail(dto.email());
+        }
+
+        return locadora;
+    }
+
+    public Locadora detalhar(Long id) {
+        var locadora = locadoraRepository.getReferenceById(id);
+
+        return locadora;
+    }
+
+    public void excluir(Long id) {
+        locadoraRepository.deleteById(id);
     }
 }

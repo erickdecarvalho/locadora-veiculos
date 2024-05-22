@@ -1,7 +1,9 @@
 package com.locadoraveiculos.api.controller;
 
 import com.locadoraveiculos.api.dto.CadastroLocadoraDto;
+import com.locadoraveiculos.api.dto.DadosAtualizacaoLocadora;
 import com.locadoraveiculos.api.dto.DadosDetalhamentoLocadora;
+import com.locadoraveiculos.api.dto.LocadoraDto;
 import com.locadoraveiculos.api.model.Locadora;
 import com.locadoraveiculos.api.service.LocadoraService;
 import jakarta.transaction.Transactional;
@@ -9,11 +11,10 @@ import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/locadoras")
@@ -21,6 +22,13 @@ public class LocadoraController {
 
     @Autowired
     private LocadoraService locadoraService;
+
+    @GetMapping
+    public ResponseEntity<List<LocadoraDto>> listar() {
+        List<LocadoraDto> locadoras = locadoraService.listar();
+
+        return ResponseEntity.ok(locadoras);
+    }
 
     @PostMapping
     @Transactional
@@ -37,4 +45,24 @@ public class LocadoraController {
         }
     }
 
+    @PutMapping
+    @Transactional
+    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoLocadora dto) {
+        var locadora = locadoraService.atualizar(dto);
+
+        return ResponseEntity.ok(new DadosDetalhamentoLocadora(locadora));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity detalhar(@PathVariable Long id) {
+        var locadora = locadoraService.detalhar(id);
+
+        return ResponseEntity.ok(new DadosDetalhamentoLocadora(locadora));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity excluir(@PathVariable Long id) {
+        locadoraService.excluir(id);
+        return ResponseEntity.noContent().build();
+    }
 }
