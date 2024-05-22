@@ -21,14 +21,14 @@ public class Locacao {
     private Veiculo veiculo;
 
     @Enumerated(EnumType.STRING)
-    private StatusLocacao statusLocacao;
+    private Status status;
 
     private String justificativaStatus;
 
     public Locacao(Locatario locatario, Veiculo veiculo) {
         this.locatario = locatario;
         this.veiculo = veiculo;
-        this.statusLocacao = StatusLocacao.AGUARDANDO_AVALIACAO;
+        this.status = Status.AGUARDANDO_AVALIACAO;
         this.data = LocalDateTime.now();
     }
 }

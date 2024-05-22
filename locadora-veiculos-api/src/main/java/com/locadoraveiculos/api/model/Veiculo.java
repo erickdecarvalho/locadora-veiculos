@@ -32,6 +32,9 @@ public class Veiculo {
     @OneToOne(mappedBy = "veiculo", fetch = FetchType.LAZY)
     private Locacao locacao;
 
+    public Veiculo() {
+    }
+
     public Veiculo(CadastroVeiculoDto dto, Locadora locadora) {
         this.tipo = dto.tipoVeiculo();
         this.nome = dto.nome();
@@ -41,5 +44,37 @@ public class Veiculo {
         this.peso = dto.peso();
         this.locadora = locadora;
         this.alugado = false;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public TipoVeiculo getTipo() {
+        return tipo;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getChassi() {
+        return chassi;
+    }
+
+    public Integer getAno() {
+        return ano;
+    }
+
+    public String getCor() {
+        return cor;
+    }
+
+    public Float getPeso() {
+        return peso;
+    }
+
+    public Boolean getAlugado() {
+        return alugado;
     }
 }

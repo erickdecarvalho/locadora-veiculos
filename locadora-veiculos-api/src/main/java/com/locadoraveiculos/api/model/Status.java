@@ -1,6 +1,6 @@
 package com.locadoraveiculos.api.model;
 
-public enum StatusLocacao {
+public enum Status {
     AGUARDANDO_AVALIACAO,
     APROVADO,
     REPROVADO;

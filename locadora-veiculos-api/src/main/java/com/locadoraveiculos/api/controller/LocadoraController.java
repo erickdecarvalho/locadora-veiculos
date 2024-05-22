@@ -1,11 +1,9 @@
 package com.locadoraveiculos.api.controller;
 
-import com.locadoraveiculos.api.dto.CadastroLocadoraDto;
-import com.locadoraveiculos.api.dto.DadosAtualizacaoLocadora;
-import com.locadoraveiculos.api.dto.DadosDetalhamentoLocadora;
-import com.locadoraveiculos.api.dto.LocadoraDto;
+import com.locadoraveiculos.api.dto.*;
 import com.locadoraveiculos.api.model.Locadora;
 import com.locadoraveiculos.api.service.LocadoraService;
+import com.locadoraveiculos.api.service.VeiculoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
@@ -22,6 +20,23 @@ public class LocadoraController {
 
     @Autowired
     private LocadoraService locadoraService;
+
+    @Autowired
+    private VeiculoService veiculoService;
+
+    @PostMapping("/{id}/veiculos")
+    @Transactional
+    public ResponseEntity<String> cadastrarVeiculo(@PathVariable Long id, @RequestBody @Valid CadastroVeiculoDto dto) {
+        var locadora = locadoraService.detalhar(id);
+        veiculoService.cadastrarVeiculo(locadora, dto);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}/veiculos")
+    public ResponseEntity<List<VeiculoDto>> listarVeiculos(@PathVariable Long id) {
+        List<VeiculoDto> veiculosDaLocadora = locadoraService.listarVeiculosDaLocadora(id);
+        return ResponseEntity.ok(veiculosDaLocadora);
+    }
 
     @GetMapping
     public ResponseEntity<List<LocadoraDto>> listar() {
