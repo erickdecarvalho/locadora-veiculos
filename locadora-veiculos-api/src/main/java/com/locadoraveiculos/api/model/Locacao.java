@@ -25,10 +25,22 @@ public class Locacao {
 
     private String justificativaStatus;
 
+    public Locacao() {
+    }
+
     public Locacao(Locatario locatario, Veiculo veiculo) {
         this.locatario = locatario;
         this.veiculo = veiculo;
         this.status = Status.AGUARDANDO_AVALIACAO;
         this.data = LocalDateTime.now();
+    }
+
+    public void marcarComoAprovada() {
+        this.status = Status.APROVADO;
+    }
+
+    public void marcarComoReprovada(String justificativa) {
+        this.status = Status.REPROVADO;
+        this.justificativaStatus = justificativa;
     }
 }
