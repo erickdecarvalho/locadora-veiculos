@@ -43,4 +43,28 @@ public class Locacao {
         this.status = Status.REPROVADO;
         this.justificativaStatus = justificativa;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public LocalDateTime getData() {
+        return data;
+    }
+
+    public Long getLocatario() {
+        return locatario.getId();
+    }
+
+    public Long getVeiculo() {
+        return veiculo.getId();
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public String getJustificativaStatus() {
+        return justificativaStatus;
+    }
 }

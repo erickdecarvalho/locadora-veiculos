@@ -31,4 +31,20 @@ public class Locatario {
         this.telefone = dto.telefone();
         this.email = dto.email();
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }

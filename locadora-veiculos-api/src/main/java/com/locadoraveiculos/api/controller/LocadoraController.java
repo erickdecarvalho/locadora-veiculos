@@ -38,6 +38,12 @@ public class LocadoraController {
         return ResponseEntity.ok(veiculosDaLocadora);
     }
 
+    @GetMapping ("/{id}/locacoes")
+    public ResponseEntity<List<LocacaoDto>> listarLocacoes(@PathVariable Long id) {
+        List<LocacaoDto> locacoesDaLocadora = locadoraService.listarLocacoessDaLocadora(id);
+        return ResponseEntity.ok(locacoesDaLocadora);
+    }
+
     @GetMapping
     public ResponseEntity<List<LocadoraDto>> listar() {
         List<LocadoraDto> locadoras = locadoraService.listar();

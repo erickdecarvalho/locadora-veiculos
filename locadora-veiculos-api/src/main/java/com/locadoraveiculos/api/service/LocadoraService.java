@@ -1,11 +1,9 @@
 package com.locadoraveiculos.api.service;
 
-import com.locadoraveiculos.api.dto.CadastroLocadoraDto;
-import com.locadoraveiculos.api.dto.DadosAtualizacaoLocadora;
-import com.locadoraveiculos.api.dto.LocadoraDto;
-import com.locadoraveiculos.api.dto.VeiculoDto;
+import com.locadoraveiculos.api.dto.*;
 import com.locadoraveiculos.api.exception.ValidacaoException;
 import com.locadoraveiculos.api.model.Locadora;
+import com.locadoraveiculos.api.repository.LocacaoRepository;
 import com.locadoraveiculos.api.repository.LocadoraRepository;
 import com.locadoraveiculos.api.repository.VeiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,9 @@ public class LocadoraService {
 
     @Autowired
     private VeiculoRepository veiculoRepository;
+
+    @Autowired
+    private LocacaoRepository locacaoRepository;
 
     public List<LocadoraDto> listar() {
         return locadoraRepository.findAll().stream().map(LocadoraDto::new).toList();
@@ -72,4 +73,13 @@ public class LocadoraService {
                 .toList();
     }
 
+    public List<LocacaoDto> listarLocacoessDaLocadora(Long id) {
+        var locadora = locadoraRepository.getReferenceById(id);
+
+        return locacaoRepository
+                .findByLocadora(locadora)
+                .stream()
+                .map(LocacaoDto::new)
+                .toList();
+    }
 }
